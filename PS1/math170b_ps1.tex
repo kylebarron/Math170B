@@ -1,0 +1,428 @@
+\documentclass{article}
+
+\setlength{\oddsidemargin}{0 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+
+\usepackage{amsmath,amsfonts,graphicx}
+\usepackage{amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{pgfplots}
+\hypersetup{
+    colorlinks,
+    citecolor=blue,
+    filecolor=blue,
+    linkcolor=blue,
+    urlcolor=blue
+}
+\usepackage{pgfplots}
+
+%
+
+\makeatletter
+\newcommand*\dotp{\mathpalette\dotp@{.5}}
+\newcommand*\dotp@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+\makeatletter
+\newsavebox\myboxA
+\newsavebox\myboxB
+\newlength\mylenA
+
+\newcommand*\xoverline[2][0.75]{%
+    \sbox{\myboxA}{$\m@th#2$}%
+    \setbox\myboxB\null% Phantom box
+    \ht\myboxB=\ht\myboxA%
+    \dp\myboxB=\dp\myboxA%
+    \wd\myboxB=#1\wd\myboxA% Scale phantom
+    \sbox\myboxB{$\m@th\overline{\copy\myboxB}$}%  Overlined phantom
+    \setlength\mylenA{\the\wd\myboxA}%   calc width diff
+    \addtolength\mylenA{-\the\wd\myboxB}%
+    \ifdim\wd\myboxB<\wd\myboxA%
+       \rlap{\hskip 0.5\mylenA\usebox\myboxB}{\usebox\myboxA}%
+    \else
+        \hskip -0.5\mylenA\rlap{\usebox\myboxA}{\hskip 0.5\mylenA\usebox\myboxB}%
+    \fi}
+\makeatother
+
+%
+
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\lecture}[4]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf Math 170B
+	\hfill Winter 2017} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Problem Set #1 \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Lecturer: #3 \hfill #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Problem Set #1}{Problem Set #1}
+  }
+
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheoremstyle{break}
+  {\topsep}{\topsep}%
+  {\itshape}{}%
+  {\bfseries}{}%
+  {\newline}{}%
+\theoremstyle{break}
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{lemma*}{Lemma}
+\newtheorem{problem}{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}{Example}
+
+\newenvironment{solution}{{\bf Solution:}}{\hfill\rule{2mm}{2mm}}
+\renewenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\X}{\mathbb{X}}
+\renewcommand{\L}{\mathcal{L}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\interior}{\text{int}}
+\newcommand{\exterior}{\text{ext}}
+\newcommand{\bigci}{\mathrel{\text{\scalebox{1.07}{$\perp\mkern-10mu\perp$}}}}
+\newcommand{\nsum}{\sum_{n=0}^{\infty}}
+
+\setlist[itemize]{topsep=0pt}
+\setlist[enumerate]{topsep=0pt}
+
+\begin{document}
+
+\lecture{1}{}{Steven Heilman}{Kyle Barron}
+
+
+\subsection*{Exercise 1}
+Using the De Moivre-Laplace Theorem, estimate the probability that 1,000,000 coin flips of fair coins will result in more than 501,000 heads. (Some of the following integrals may be relevant: $\int_{-\infty}^0 e^{-t^2/2} dt/\sqrt{2 \pi} = 1/2$, $\int_{-\infty}^1 e^{-t^2/2} dt/\sqrt{2 \pi} \approx .8413$, $\int_{-\infty}^2 e^{-t^2/2} dt/\sqrt{2 \pi} \approx .9772$, $\int_{-\infty}^3 e^{-t^2/2} dt/\sqrt{2 \pi} \approx .9987$.)
+
+\begin{solution}
+Since coin flips of fair coins are independent Bernoulli random variables, we can use the De Moivre-Laplace Theorem. Let $n =$ 1,000,000.
+\begin{align*}
+\P(X_1 + ... + X_n > 501000) &= 1 - \P( X_1 + ... + X_n \leq 501000) \\
+	&= 1 - \P( X_1 + ... + X_n - 500000 \leq 1000) \\
+	&= 1 - \P \left( \frac{X_1 + ... + X_n - 500000}{1000} \leq 1 \right) \\ 
+	&= 1 - \P \left( \frac{X_1 + ... + X_n - 500000}{1000 \cdot \sqrt{1/4}} \leq 2 \right) \\
+	&= 1 - \P \left( \frac{X_1 + ... + X_n - (1/2)n}{\sqrt{n} \cdot \sqrt{1/4}} \leq 2 \right) \\
+	&\approx 1 - \int_{-\infty}^2 e^{-t^2/2} \frac{dt}{\sqrt{2\pi}} \\
+	&= 1 - .9772 = .0228.
+\end{align*}
+(Where the approximation is given by the De Moivre-Laplace Theorem, and $a = 2$.)
+\end{solution}
+
+
+\subsection*{Exercise 2}
+Let $X$ and $Y$ be nonnegative random variables. Recall that we can define 
+\[ \E[X] \coloneqq \int_{0}^\infty \P(X > t) dt.
+\]
+Assume that $X \leq Y$. Conclude that $\E[X] \leq \E[Y]$. 
+
+More generally, if $X$ satisfies $\E[ |X| ] < \infty$, we define $\E[X] \coloneqq \E [ \max(X,0)] - \E[ \max(-X,0)]$. If $X, Y$, are any random variables with $X \leq Y$, $\E[|X|] < \infty$ and $\E[ |Y| ] < \infty$, show that $\E[X] \leq \E[Y]$. 
+
+\begin{solution}
+Suppose that $X \leq Y$. We want to show that $\E[X] \leq \E[Y]$. Well by the definition of $\E[X]$ above, we can write
+\begin{align*}
+\E[X] \leq \E[Y] &\Leftarrow \int_0^\infty \P(X > t) dt \leq \int_0^\infty \P(Y > t) dt \\
+	&\Leftarrow \P(X > t) \leq \P(Y > t), \forall t \\
+	&\Leftarrow \{ X > t \} \subseteq \{ Y > t \}, \forall t \\
+	&\Leftarrow \text{ if } X > t, Y \geq X > t, \forall t \\
+	&\Leftarrow X \leq Y.
+\end{align*}
+That is, since $X \leq Y$, then if $X > t$, then $Y \geq X > t$. That means that the set of all $X$ that is greater than $t$ is contained within the set of all $Y$ that is greater than $t$. Hence $\P(X > t) \leq \P(Y > t), \forall t$. Thus $\E[X] \leq \E[Y]$.
+
+\end{solution}
+
+\subsection*{Exercise 3}
+Using the definition of convergence, show that the sequence of numbers 
+\[ 1, 1/2, 1/3, 1/4, ... \]
+converges to 0. 
+
+\begin{proof}
+Let $x_n = \frac{1}{n}$, let $\epsilon > 0$, and let $M = \frac{1}{\epsilon}$. Then for $n > M$ we have 
+\[ |x_n - x| = \left| \frac{1}{n} - 0 \right| = \frac{1}{n} < \frac{1}{M} = \epsilon.\]
+Therefore the sequence $(x_n)$ with $x_n = \frac{1}{n}$ converges to 0.
+\end{proof}
+
+\subsection*{Exercise 4}
+Let $x_1, x_2, ...$ be a sequence of real numbers. Let $x,y \in \R$. Assume that $x_1, x_2, ...$ converges to $x$. Assume also that $x_1, x_2, ... $ converges to $y$. Prove that $x = y$. That is, a sequence of real numbers cannot converge to two different real numbers.
+
+\begin{proof}
+Call $(x_n)$ the sequence of $x_1, x_2, ...$. Let $x,y \in \R$. Suppose that $x_n \rightarrow x$ and $x_n \rightarrow y$. Suppose for contradiction that $x \not = y$. 
+
+Let $\epsilon = \frac{|x-y|}{3}$. Since $x_n \rightarrow x$, there exists $M_x$ such that $n > M_x \Rightarrow |x_n - x| < \epsilon$. Since $x_n \rightarrow y$, there exists $M_y$ such that $n > M_y \Rightarrow |x_n - y| < \epsilon$. Let $Z = \max\{M_x, M_y\}$. Then when $n > Z$,
+\[ |x - y| = |x - x_n + x_n - y| \leq |x_n - x| + |x_n - y| < \frac{|x-y|}{3} + \frac{|x-y|}{3} < |x - y|,
+\]
+where the second relation is from the triangle inequality and the third is using the convergence of $x_n$ to $x$ and $y$. This is a contradiction so $x = y$.
+\end{proof}
+
+
+\subsection*{Exercise 5}
+Let $X$ be a uniformly distributed random variable on $[-1,1]$. Let $Y \coloneqq X^2$. Find $f_Y$. 
+
+\begin{solution}
+Let $X$ be uniformly distributed on $[-1,1]$, let $g(x) = x^2$, and let $Y = g(X)$. Since $X$ is continuous, $x^2$ is continuous and $F_Y$ is differentiable we can use Proposition 2.6 from the notes. 
+
+First note that
+\[ f_X(x) = \begin{cases}
+\frac{1}{2}, & x \in [-1,1] \\
+0, & \text{otherwise}.
+\end{cases}
+\]
+
+Then
+\begin{align*}
+f_Y(y) &= \frac{d}{dy} \int_{\{x \in \R : g(x) \leq y\}} f_X(x)dx \\
+&= \frac{d}{dy} \int_{\{x \in [-1,1]: x^2 \leq y \}} \frac{1}{2} dx.
+\end{align*}
+If $y < 0$, the integral is zero. If $y > 1$ the integral is 1. If $y \in [0,1]$ we have 
+\begin{align*}
+f_Y(y) &= \frac{d}{dy} \frac{1}{2} \int_{-y^{1/2}}^{y^{1/2}} dx \\
+&= \frac{1}{2} \frac{d}{dy} [y^{1/2} + y^{1/2}] \\
+&= \frac{1}{2 \sqrt{y}}. 
+\end{align*}
+So the PDF of $Y$ is 
+\[ f_Y = \begin{cases}
+0, & y < 0 \\
+\frac{1}{2 \sqrt{y}}, & y \in [0,1] \\
+0, & y > 1.
+\end{cases}
+\]
+\end{solution}
+
+\subsection*{Exercise 6}
+Let $X$ be a uniformly distributed random variable on $[0,1]$. Let $Y \coloneqq 4X(1-X)$. Find $f_Y$.
+
+\begin{solution}
+We wish to find $f_Y$. We'll first find $F_Y$ and then take the derivative. First note that when $x \in [0,1]$, the image of $4x(1-x)$ is $[0,1]$. So we only have to deal with $y$ values between $0$ and $1$. Note that $f_X(x) = 1$ on $x \in [0,1]$. 
+\begin{align*}
+\P(Y \leq y) &= \P(4X(1-X) \leq y) \\
+	&= \P \left( 0 \leq x \leq \frac{1 - \sqrt{1-y}}{2} \right) + \P \left(\frac{1 + \sqrt{1-y}}{2} \leq x \leq 1 \right) \\
+	&= \frac{1 - \sqrt{1-y}}{2} + 1 - \frac{1 + \sqrt{1-y}}{2} \\
+	&= 1 - \sqrt{1-y} \text{ for } y \in [0,1].
+\end{align*}
+Therefore, the PDF of $Y$ is:
+\[ 
+\]
+
+
+\begin{comment}
+Let $X$ be uniformly distributed on $[0,1]$, let $g(x) = 4x(1-x)$, and let $Y = g(X)$. Since $X$ is continuous, $g(x)$ is continuous, and assuming $F_Y$ is differentiable, we can again use Proposition 2.6 from the notes. 
+
+Since $X$ is uniformly distributed on $[0,1]$, $f_X = 1$ for $x \in [0,1]$ and $f_X = 0$ otherwise. Then \begin{align*}
+F_Y(y) &= \frac{d}{dy} \int_{\{x \in \R : g(x) \leq y\}} f_X(x)dx \\
+&= \frac{d}{dy} \int_{\{x \in [0,1]: 4x(1-x) \leq y \}} 1  dx.
+\end{align*}
+If $y < 0$, the integral is zero. If $y > 1$, the integral is 1. If $y \in [0, 1]$, we have
+\begin{align*}
+f_Y(y) &= \frac{d}{dy} \int_{\{x \in [0,1]: 4x(1-x) \leq y \}} 1  dx \\
+	&= \frac{d}{dy} \left[ 1 -  \int_{\{x \in [0,1]: 4x(1-x) > y \}} 1 dx \right] \\
+	&= \frac{d}{dy} \left[ 1 -  \int_{\{x \in [0,1]: 4x(1-x) > y \}} 1 dx \right] 
+\end{align*}
+\end{comment}
+
+
+
+
+
+\end{solution}
+
+\subsection*{Exercise 7}
+Let $X$ be a uniformly distributed random variable on $[0,1]$. Find the PDF of $-\log(X)$.
+
+
+\begin{solution}
+
+Recall that the CDF of $X$ is $F_X(x) = \begin{cases}
+0, & x \leq 0 \\
+x, & x \in [0,1] \\
+1, & x \geq 1.
+\end{cases}$.
+
+Then to find the CDF of $Y$,
+\[ F_Y(y) = \P(Y \leq y) = \P(- \log(X) \leq y) = \P(X \geq e^{-y}) = 1 - \P(X \leq e^{-y}) = 1 - e^{-y}.
+\]
+Therefore $F_Y(y) = \begin{cases}
+0, & y < 0 \\
+1 - e^{-y}, & y \geq 0
+\end{cases}
+$, so $f_Y(y) = \begin{cases}
+0, & y < 0 \\
+e^{-y}, & y \geq 0
+\end{cases}
+$.
+
+
+
+\end{solution}
+
+
+\subsection*{Exercise 8}
+Let $X$ be a standard normal random variable. Find the PDF of $e^X$. 
+
+\begin{align*}
+f_Y(y) &= \frac{d}{dy} \int_{\{x \in \R : g(x) \leq y \}} \frac{1}{\sqrt{2 \pi}} e ^{-\frac{x^2}{2}} dx \\
+	&= \frac{d}{dy} \int_{\{x \in \R : e^x \leq y \}} \frac{1}{\sqrt{2 \pi}} e ^{-\frac{x^2}{2}} dx \\
+	 &= \frac{d}{dy} \int_{\{x \in \R : x \leq \ln(y) \}} \frac{1}{\sqrt{2 \pi}} e ^{-\frac{x^2}{2}} dx \\
+	  &= \frac{d}{dy} \int_{\infty}^{\ln(y)} \frac{1}{\sqrt{2 \pi}} e ^{-\frac{x^2}{2}} dx \\
+	  &= \frac{1}{\sqrt{2 \pi}} e ^{- \frac{\ln(y)^2}{2}} \\
+	  &= \frac{1}{\sqrt{2 \pi}} e ^{ \ln (y^{-1/2})^2} \\
+	  &= \frac{1}{\sqrt{2 \pi}} \left( e ^{ \ln (y^{-1/2})} \right)^{ \ln (y^{-1/2})} \\
+	  &= \frac{1}{\sqrt{2 \pi}} \left( y^{-1/2} \right)^{ \ln (y^{-1/2})} \\
+\end{align*}
+
+
+$ = \frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2} \ln(y)^2}$.
+
+\subsection*{Exercise 9}
+Let $X,Y,Z$ be independent standard Gaussian random variables. Find the PDF of $\max(X,Y,Z)$.
+
+\begin{solution}
+Let $X, Y, Z$ be independent standard Gaussian random variables. Denote $W = \max\{X,Y,Z\}$.
+First I'll find the CDF of $W$ and then I'll take the derivative to get the PDF of $W$.
+\begin{align*}
+F_W(w) &= \P(W \leq w) \\
+	&= \P( X \leq w, Y \leq w, Z \leq w) \\
+	&= \P(X \leq w) \P(Y \leq w) \P(Z \leq w) \\
+	&= F_X(w) F_Y(w) F_Z(w) \\
+	&= F_X(w)^3. \\
+f_W(w) &= 3F_X(w)^2 \cdot f_X(w).	
+\end{align*}
+Where $f_X(w) = \frac{1}{\sqrt{2\pi}} e^{-w^2/2}$ and $F_X(w) = \int_{-\infty}^w \frac{1}{\sqrt{2\pi}} e^{-t^2/2} dt$.
+
+\end{solution}
+
+
+\subsection*{Exercise 10}
+Let $X$ be a random variable uniformly distributed in $[0,1]$ and let $Y$ be a random variable uniformly distributed in $[0,2]$. Suppose $X$ and $Y$ are independent. Find the PDF of $X/Y^2$.
+
+
+\begin{solution}
+d
+\end{solution}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
