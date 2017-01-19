@@ -376,54 +376,31 @@ We now need to break this up into cases.
 Those are the cases for $z$ and $y$ jointly but we also have the cases just depending on $z$:
 \begin{itemize}
 \item Case A: if $\sqrt{\frac{1}{z}} \geq 2$, only case 2 exists above.
-\item Case B: if $\sqrt{\frac{1}{z}} < 2$, both case 1 and 2 above exist. 
-\end{itemize}
 
+\begin{align*}
+F_Z(z) &= \frac{1}{2} \left( \int_0^2 \int_0^{zy^2} dx dy \right) \\
+	&= \frac{1}{2} \left( \int_0^2 zy^2 dy \right) \\
+	&= \frac{1}{2} \left[ \frac{zy^3}{3} \right]_{y = 0}^{y = 2} \\
+	&= \frac{4z}{3}, \text{ for } 0 \leq z \leq \frac{1}{4}.
+\end{align*}
+
+\item Case B: if $\sqrt{\frac{1}{z}} < 2$, both case 1 and 2 above exist. 
 \begin{align*}
 F_Z(z) &= \frac{1}{2} \left( \int_{\sqrt{\frac{1}{z}}}^2 \int_0^1 dx dy + \int_0^{\sqrt{\frac{1}{z}}} \int_0^{zy^2} dx dy \right) \\
 	&= \frac{1}{2} \left( 2 - \sqrt{\frac{1}{z}} + \left[ \frac{zy^3}{3} \right]_{y = 0}^{y = {\sqrt{\frac{1}{z}}}}  \right) \\
 	&= \frac{1}{2} \left( 2 - \sqrt{\frac{1}{z}} + \frac{z \cdot z^{-3/2}}{3} \right) \\
 	&= \frac{1}{2} \left( 2 - \sqrt{\frac{1}{z}} + \frac{z^{-1/2}}{3} \right) \\
-	&= \frac{3 \sqrt{z} - 1}{3 \sqrt{z}} \\
+	&= \frac{3 \sqrt{z} - 1}{3 \sqrt{z}}, \text{ for } z > \frac{1}{4}.
 \end{align*}
+\end{itemize}
+So therefore, taking the derivative of each we get
+\[ f_Z(z) = \begin{cases}
+\frac{1}{6 z^{3/2}}, & z > \frac{1}{4} \\
+\frac{4}{3}, & 0 \leq z \leq \frac{1}{4}.
+\end{cases}
+\]
+
 \end{solution}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
