@@ -126,12 +126,13 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{example}{Example}
-%\newtheorem{solution}{Solution}
 
 \newenvironment{solution}{{\bf Solution:}}{\hfill\rule{2mm}{2mm}}
 \renewenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
 
 \newcommand{\E}{\mathbb{E}}
+\newcommand{\var}{\mathrm{var}}
+\newcommand{\cov}{\mathrm{cov}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
@@ -139,7 +140,7 @@
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\X}{\mathbb{X}}
 \renewcommand{\L}{\mathcal{L}}
-\renewcommand{\P}{\mathbb{P}}
+\renewcommand{\P}{\mathbf{P}}
 \newcommand{\B}{\mathcal{B}}
 \newcommand{\interior}{\text{int}}
 \newcommand{\exterior}{\text{ext}}
@@ -153,76 +154,235 @@
 
 \lecture{2}{}{Steven Heilman}{Kyle Barron}
 
-
 \subsection*{Exercise 1}
-Let $X, Y$ be random variables with 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Let $X, Y$ be random variables with $\E[X^2] < \infty$ and $\E[Y^2] < \infty$. Prove the Cauchy-Schwarz inequality:
+\[ \E[XY] \leq \E[X^2]^{1/2} \E[Y^2]^{1/2}. \]
+Then, deduce the following when $X,Y$ both have finite variance:
+\[ | \cov(X,Y) | \leq \var(X)^{1/2} \var(Y)^{1/2}.  
+\]
+(Hint: in the case that $\E[Y^2] > 0$, expand out the product $\E[X - Y\E[XY]/\E[Y^2]]^2$.)
+
+\begin{proof}
+Observe that we can rewrite the above inequality as
+\[ \E[XY]^2 \leq \E[X^2] \E[Y^2]. \]
+We can assume that $\E[Y^2] \not = 0$, because if $\E[Y^2] = 0$, then we have $Y = 0$ with probability 1, and $\E[XY] = 0$, so the inequality holds. Then we have
+\begin{align*}
+0 &\leq \E \left[ \left( X - \frac{\E[XY]}{\E[Y^2]} Y \right)^2 \right] \\
+	&= \E \left[ X^2 - 2 \frac{\E[XY]}{\E[Y^2]} XY + \frac{( \E[XY])^2}{(\E[Y^2])^2}Y^2 \right] \\
+	&= \E[X^2] - 2 \frac{\E[XY]}{\E[Y^2]} \E[XY] + \frac{(\E[XY])^2}{(\E[Y^2])^2} \E[Y^2] \\
+	&= \E[X^2] - \frac{(\E[XY])^2}{\E[Y^2]} \Rightarrow \\
+	\E[XY]^2 &\leq \E[X^2]\E[Y^2].
+\end{align*}
+Then for the second part of the problem, let $\tilde{X} = X - \E[X]$ and let $\tilde{Y} = Y - \E[Y]$. Using the Cauchy-Schwarz inequality, we have 
+\[ \cov(X,Y)^2 = \E[ \tilde{X} \tilde{Y} ]^2 \leq \E[\tilde{X}^2] \E[\tilde{Y}^2] = \var(X) \var(Y). \]
+Therefore,
+\[ |\cov(X,Y) | \leq \var(X)^\frac{1}{2} \var(Y)^\frac{1}{2}.\]
+\end{proof}
+
+\subsection*{Exercise 2}
+Let $X$ be a binomial random variable with parameters $n = 2$ and $p = 1/2$. So $\P(X = 0) = \frac{1}{4}$, $\P(X = 1) = \frac{1}{2}$, and $\P(X = 2) = \frac{1}{4}$. And $X$ satisfies $\E[X] = 1$ and $\E[X^2] = \frac{3}{2}$.
+
+Let $Y$ be a geometric random variable with parameter $1/2$. So, for any positive integer $k$, $\P(Y = k) = 2^{-k}$. And $Y$ satisfies $\E[Y] = 2$ and $\E[Y^2] = 6$.
+
+Let $Z$ be a Poisson random variable with parameter $1$. So, for any nonnegative integer $k$, $\P(Z = k) = \frac{1}{e} \frac{1}{k!}$. And $Z$ satisfies $\E[Z] = 1$ and $\E[Z^2] = 2$.
+
+Let $W$ be a discrete random variable such that $\P(W = 0) = 1/2$ and $\P(W = 4) = 1/2$, so that $\E[W] = 2$ and $\E[W^2] = 8$.
+
+Assume that $X$, $Y$, $Z$, and $W$ are all independent. Compute $\var(X + Y + Z + W)$.
+
+\begin{solution}
+Recall that we can compute variance as $\var(X) = \E[X^2] - \E[X]^2$. Therefore,
+\begin{align*}
+\var(X) &= \frac{3}{2} - 1^2 = \frac{1}{2}, \\
+\var(Y) &= 6 - 2^2 = 2, \\
+\var(Z) &= 2 - 1^2 = 1, \\
+\var(W) &= 8 - 2^2 = 4.
+\end{align*}
+Using Corollary 2.25 from the notes, when $X_1, ... , X_n$ are independent we have 
+$ \var \left(\sum_{i = 1}^n X_i \right) = \sum_{i = 1}^n \var(X_i).$
+Therefore, since $X$, $Y$, $Z$, and $W$ are independent we have
+\[\var(X + Y + Z + W) = \var(X) + \var(Y) + \var(Z) + \var(W) = \frac{1}{2} + 2 + 1 + 4 = \frac{15}{2}. \]
+\end{solution}
+
+
+\subsection*{Exercise 3}
+Let $X_1, ..., X_n$ be random variables with finite variance. Define an $n \times n$ matrix $A$ such that $A_{ij} = \cov(X_i, X_j)$ for any $1 \leq i, j \leq n$. Show that the matrix $A$ is positive semidefinite. That is, show that for any $y = (y_1, ..., y_n) \in \R^n$, we have 
+\[ y^TAy = \sum_{i,j = 1}^n y_i y_j a_{ij} \geq 0.
+\]
+
+\begin{solution}
+Let $A$ be an $n \times n$ matrix where $A_{ij} = \cov(X_i, X_j)$ for any $1 \leq i , j  \leq n$.
+\begin{align*}
+y^T Ay &= \sum_{i,j = 1}^n y_i y_j a_{ij} \\
+	&= \sum_{i,j = 1}^n y_i y_j  \cov(X_i, X_j) \\
+	&= \sum_{j = 1}^n y_j \cov\left( \sum_{i = 1}^n X_i, X_j \right) \\
+	&= \cov \left( \sum_{i = 1}^n X_i, \sum_{j = 1}^n y_j X_j \right) \\
+	&= \var \left( \sum_{i = 1}^n X_i \right) \geq 0.
+\end{align*}
+\end{solution}
+
+
+
+\subsection*{Exercise 4}
+(Another Total Expectation Theorem)
+Using the definition of $\E(X|Y)$, prove the following theorem, which can be considered as a version of a Total Expectation Theorem:
+\[ \E( \E(X|Y)) = \E(X).
+\]
+
+%http://www.stat.wisc.edu/courses/st312-rich/condexp.pdf p. 2
+\begin{proof}
+Supposing that $X$ and $Y$ are continuous random variables,
+\begin{align*}
+	\E[\E[X|Y]] &= \int_{-\infty}^\infty \E[Y | X = x ] f_X(x) dx \\
+		&= \int_{-\infty}^\infty \left( \int_{-\infty}^\infty y \frac{f_{X,Y}(x,y)}{f_X(x)} dy \right) f_X(x) dx \\
+		&= \int_{-\infty}^\infty \int_{-\infty}^\infty y f_{X,Y}(x,y) dx dy \\
+		&= \int_{-\infty}^\infty y f_Y(y) dy \\
+		&= \E[Y].
+\end{align*}
+The proof is identical for discrete random variables by substituting $\int dx$ for $\sum_x$ and $\int dy$ for $\sum_y$.
+\end{proof}
+
+
+
+\subsection*{Exercise 5}
+If $X$ is a random variable, and if $f(t) \coloneqq \E[(X - t)^2]$, $t \in \R$, then the function $f: \R \rightarrow \R$ is uniquely minimized when $t = \E[X]$. This follows e.g. by writing
+\begin{align*}
+\E[(X-t)^2] &= \E[(X - \E[X] + \E[X] - t)^2] \\
+	&= \E[X - \E[X]]^2 + (\E[X] - t)^2 + 2 \E[(X - \E[X])(\E[X] - t)] \\
+	&= \E[X - \E[X]]^2 + (\E[X] - t)^2.
+\end{align*}
+So, the choice $t = \E[X]$ is the smallest, and it recovers the definition of variance, since $\var(X) = \E[X - \E[X]]^2$. 
+
+A similar minimizing property holds for conditional expectation. Let $h: \R \rightarrow \R$. Show that the quantity $\E[X - h(Y)]^2$ is minimized among all functions $h$ when $h(Y) = \E[X|Y]$. (Hint: Exercise 4 might be helpful.)
+
+\begin{proof}
+\begin{align*}
+\E[(X - h(Y))^2] &= \E[ (X - \E[X | Y] + \E[X | Y] - h(Y))^2 ] \\
+	&= \E[ (X - \E[X | Y])^2] + 2\E[ (X - \E[X | Y])(\E[X | Y] - h(Y))] + \E[ ( \E[X | Y] - h(Y) )^2].
+\end{align*}
+It is sufficient to show that $2\E[ (X - \E[X | Y])(\E[X | Y] - h(Y))] = 0$. Then it is clear that $h(Y) = \E[X | Y]$ minimizes $\E[(X - h(Y))^2]$.
+From the textbook, we know that $ \E[ X h(Y) | Y ] = h(Y) \E[X|Y]$. Therefore, 
+\begin{align*}
+2\E[ (X - \E[X | Y])(\E[X | Y] - h(Y))] &= 2 \E \Big [ \E[ (X - \E[X | Y])(\E[X | Y] - h(Y))]  \Big ] \\
+	&= 2 \E[ (\E[X | Y] - h(Y)) ] \E[ X - \E[X | Y] | Y ] \\
+	&= 2 (\E[X | Y] - \E[X | Y]) (\E[X | Y] - \E[X | Y]) \\
+	&= 0.
+\end{align*}
+Therefore $\E[(X - h(Y))^2]$ is minimized when $h(Y) = \E[X | Y]$.
+\end{proof}
+
+\subsection*{Exercise 6}
+Toys are stored in small boxes, small boxes are stored in large crates, and large crates comprise a shipment. Let $X_i$ be the number of toys in small box $i \in \{ 1, 2, ... \}$. Assume that $X_i, X_2, ...$ all have the same CDF. Let $Y_i$ be the number of small boxes in large crate $i \in \{1,2, ...\}$. Assume that $Y_1, Y_2, ...$ all have the same CDF. Let $Z$ be the number of large crates in the shipment. Assume that $X_1, X_2, ..., Y_1, Y_2, ..., Z$ are all independent, nonnegative integer-valued random variables, each with expected value 10 and variance 16.
+
+Compute the expected value and variance of the number of toys in the shipment. 
+
+
+\begin{solution}
+
+Let $T_1$ be the number of toys in the large crate. Let $y \in \N_+$. Given that $Y_1 = y$, we know that $T_1 = X_1 + ... + X_y$. So using independence, we have 
+\[
+\E[T_1 | Y_1 = y ] = \E[X_1 + X_2 + ... + X_y | Y_1 = y ]	= y \E[X_1]
+	= 10y. \]
+So by the definition of conditional expectation, $\E[T_1 | Y_1] = 10Y_1$.
+We know from Exercise 4 that 
+\[ \E[T_1] = \E[ \E[ T_1 | Y_1 ]] = \E [ 10Y_1] = 10 \E[Y_1] = 100. \]
+
+For the variance, from the definition of conditional variance and Corollary 2.25, we observe that 
+\begin{align*}
+\var(T_1 | Y_1 = y ) &= \E[ ( T_1 - 10y)^2 | Y_1 = y ] \\
+	&= \E[ ( X_1 + X_2 + ... + X_y - 10y)^2 | Y_1 = y ] \\
+	&= \E[( X_1 + X_2 + ... + X_y - \E[X_1 + ... + X_y] )^2 ] \\
+	&= \var(X_1 + X_2 + ... + X_y) \\
+	&= y \var(X_1) \\
+	&= 16y.
+\end{align*}
+So,  $\var(T_1 | Y_1) = 16 Y_1$, and by Proposition 2.34 we have
+\begin{align*}
+\var(T_1 ) &= \E[ \var(T_1|Y_1)] + \var(\E[T_1 | Y_1]) \\
+	&= \E[16Y_1] + \var(10Y_1) \\
+	&= 16\E[Y_1] + 100 \var(Y_1) \\
+	&= 160 + 1600 = 1760.
+\end{align*} 
+
+Now let $W$ be the number of toys in the entire shipment. Let $z \in \N_+$. Given that $Z = z$, we know that $W = T_1 + T_2 + ... + T_z$. So using independence we have
+\[ \E[W | Z = z] = \E[ T_1 + T_2 + ... + T_z | Z = z] = z \E[T_1] = 100z.\]
+So by the definition of conditional expectation, $\E[W | Z] = 100Z$. By Exercise 4, 
+\[ \E[W] = \E [ \E[ W | Z ]] = \E[100Z] = 100 \E[Z] = 1000. \]
+From the definition of conditional variance and Corollary 2.25, we observe that
+\begin{align*}
+\var(W | Z = z) &= \E[ (W - 100z)^2 | Z = z] \\
+	&= \E[ (T_1 + T_2 + ... + T_z - 100z)^2 | Z = z] \\
+	&= \E[ (T_1 + T_2 + ... + T_z - \E[ T_1 + ... + T_z])^2] \\
+	&= \var(T_1 + T_2 + ... + T_z) \\
+	&= z\var(T_1) \\
+	&= 1760z.
+\end{align*}
+So $\var(W|Z) = 1760Z$, and by Proposition 2.34 we have 
+\begin{align*}
+\var(W) &= \E[ \var(W | Z)] + \var(\E[W | Z]) \\
+	&= \E[1760Z] + \var(100Z) \\
+	&= 1760 \E[Z] + 10000 \var(Z) \\
+	&= 1760 \cdot 10 + 10000 \cdot 16 \\
+	&= 177600.
+\end{align*}
+So the expected number of toys in the shipment is $1000$ with a variance of $177600$.
+\end{solution}
+
+
+\subsection*{Exercise 7}
+Let $0 < p < 1$. Suppose you have a biased coin which has a probability $p$ of landing heads, and probability $1-p$ of landing tails, each time it is flipped. Also, suppose you have a fair six-sided die (so each face of the cube has a distinct label from the set $\{1, 2, 3, 4, 5, 6\}$, and each time you roll the die, any face of the cube is rolled with equal probability.)
+
+Let $N$ be the number of coin flips you need to do until the first head appears. Now, roll the fair die $N$ times. Let $S$ be the sum of the results of the $N$ rolls of the die. Compute $\E[S]$ and $\var(S)$.
+
+
+\begin{solution}
+
+Let $N$ be the number of coin flips that it takes to make the first head appear. Let $S$ be the sum of the results of the $N$ rolls of the die. Then $N$ is a geometric random variable with parameter $p$. Therefore we have 
+\[ \E[N] = \frac{1}{p} \text{ and } \var(N) = \frac{1-p}{p^2}.\]
+Let $D_i$ be the random variable corresponding to each roll of the dice. Note that $\E[D_i] = 3.5$ and that $\var(D_i) = \frac{17.5}{6}$. Let $n \in \N_+$, so that $S = D_1 + D_2 + ... + D_n$ when $N = n$. Then 
+\[ \E[S | N = n] = \E[D_1 + ... + D_n | N = n] = n \E[D_1] = 3.5n.\]
+By the definition of conditional expectation, we have $\E[S | N] = 3.5N$. By ? we have 
+\[ \E[S] = \E[ \E[ S | N]] = \E[3.5 N] = 3.5 \E[N] = \frac{3.5}{p}.\]
+
+From the definition of conditional variance and Corollary 2.25, we have 
+\begin{align*}
+\var(S | N = n) &= \E[ (S- \E[S | N])^2 | N = n] \\
+	&= \E[ (D_1 + D_2 + ... + D_n - 3.5N)^2 | N = n] \\
+	&= \var(D_1 + ... + D_n) \\
+	&= n \var(D_1) \\
+	&= n \frac{17.5}{6}.
+\end{align*}
+So then $\var(S | N) = N \frac{17.5}{6}$.
+Then by proposition 2.34,
+\begin{align*}
+\var(S) &= \E[ \var(S | N) ] +  \var( \E[ S  | N ] ) \\
+	&= \E[ N \frac{17.5}{6} ]  + \var( 3.5 N ) \\
+	&= \frac{17.5}{6} \E[N] + 3.5^2 \cdot \var(N) \\
+	&= \frac{17.5}{6} \cdot \frac{1}{p} + \frac{49}{4} \cdot \frac{1-p}{p^2} \\
+	&= \frac{147 -112p}{12p^2} .
+\end{align*}
+So we have $\E[S] = 3.5 \frac{1-p}{p}$ and $\var(S) =  \frac{147 -112p}{12p^2} $.
+\end{solution}
+
+
+\subsection*{Exercise 8}
+Let $f: \R \rightarrow \R$ be a twice differentiable function. Assume that $f$ is convex. That is, $f''(x) \geq 0$, or equivalently, the graph of $f$ lies above any of its tangent lines. That is, for any $x, y \in \R$,
+\[ f(x) \geq f(y) + f'(y)(x-y).\]
+Let $X$ be a discrete random variable. By setting $y = \E[X]$, prove \textbf{Jensen's inequality}:
+\[\E[f(X)] \geq f(\E[X]).\]
+In particular, choosing $f(x) = x^2$, we have $\E[X^2] \geq (\E[X])^2$.
+
+\begin{proof}
+Let $f: \R \rightarrow \R$ be twice differentiable and convex. Therefore, for all $x, y \in \R$,
+\[ f(x) \geq f(y) + f'(y)(x-y).\]
+Let $x = X$ and let $y = \E[X]$. Then 
+\[ f(X) \geq f(\E[X]) + f'(\E[X]) (X - \E[X]).\]
+Notice however, that $\E[X]$ is a constant, so its derivative is zero. Now taking the expectation of both sides, we get 
+\begin{align*}
+\E[f(X)] &\geq \E[  f(\E[X]) + f'(\E[X]) (X - \E[X]) ] \\
+	&= f(\E[X]) + \E[ f'(\E[X]) (X - \E[X]) ] \\
+	&= f(\E[X]).
+\end{align*}
+Therefore $\E[f(X)] \geq f(\E[X])$ for a convex function $f$.
+\end{proof}
 \end{document}
