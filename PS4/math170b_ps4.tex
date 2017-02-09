@@ -201,12 +201,16 @@ $$\lim_{t \rightarrow 0}t^{-2} |\E e^{itX}-[1+it\E X-t^{2}\E X^{2}/2]|=0.$$
 Actually, this same bound holds only assuming $\E X^{2}<\infty$, but the proof of that bound requires things we have not discussed.
 
 \begin{solution}
-Let $X$ be a random variable with $\E[|X|^3] < \infty$. I'll first show that $\E[|X|] < \infty$. Let $f(X) = |X|^3$; note that this is a convex function. 
+Let $X$ be a random variable with $\E[|X|^3] < \infty$. Recall that Jensen's inequality says that for a twice differentiable, convex function $f$, $\E[f(X)] \geq f(\E[X])$.
+
+I'll first show that $\E[|X|] < \infty$. Let $f(X) = |X|^3$; note that this is a convex function. 
 Then $\E[f(|X|)] = \E[|X|^3]$ and $f(\E[|X|]) = |\E[|X|]|^3 = \E[|X|]^3$. We can now use Jensen's inequality. 
 \[ \infty > \E[|X|^3] \geq |\E[|X|]|^3 = \E[|X|]^3.\]
 Therefore, $\E[|X|] < \infty$.
 
-I'll do a similar procedure to show that $\E[X^2] < \infty$. Let $g(X) = |X|$. This is a 
+I'll do a similar procedure to show that $\E[X^2] < \infty$. Let $g(X) = |X|^\frac{3}{2}$. This is also a convex function. Then $\E[g(X^2)] = \E[|X|^3]$ and $g(\E[X^2]) = |\E[X^2]|^\frac{3}{2} = \E[X^2]^\frac{3}{2}$. We can now use Jensen's inequality. 
+\[ \infty > \E[|X|^3] \geq |\E[X^2]|^\frac{3}{2} = \E[X^2]^\frac{3}{2}.\]
+Therefore, $\E[X^2] < \infty$.
 
 
 
