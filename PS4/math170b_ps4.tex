@@ -212,7 +212,17 @@ I'll do a similar procedure to show that $\E[X^2] < \infty$. Let $g(X) = |X|^\fr
 \[ \infty > \E[|X|^3] \geq |\E[X^2]|^\frac{3}{2} = \E[X^2]^\frac{3}{2}.\]
 Therefore, $\E[X^2] < \infty$.
 
-
+Using the Taylor expansion of $\E[e^{itX}]$, we have 
+\begin{align*}
+\E[e^{itX}] &= 1 + it \E[X] - \frac{t^2 \E[X^2]}{2} - \frac{it}{2} \int_0^{tX} (X - s)^2 e^{is} ds.
+\end{align*}
+Now plugging this into the limit we want to prove, 
+\begin{align*}
+\lim_{t \rightarrow 0} \frac{1}{t^2} \left|\E e^{itX}-\left[1+it\E X- \frac{t^{2}\E X^{2}}{2}\right]\right| &= \\
+\lim_{t \rightarrow 0} \frac{1}{t^2} \left|1 + it \E[X] - \frac{t^2 \E[X^2]}{2} - \frac{it}{2} \int_0^{tX} (X - s)^2 e^{is} ds -\left[1+it\E X- \frac{t^{2}\E X^{2}}{2}\right]\right| &= \\
+\lim_{t \rightarrow 0} \frac{1}{t^2} \left|\frac{it}{2} \int_0^{tX} (X - s)^2 e^{is} ds\right| &= \\
+\lim_{t \rightarrow 0} \frac{1}{t} \left|\frac{i}{2} \int_0^{tX} (X - s)^2 e^{is} ds\right| &=
+\end{align*}
 
 \end{solution}
 
