@@ -23,7 +23,6 @@
 \usepackage{verbatim}
 \usepackage{bbm}
 \usepackage{bm}
-\usepackage{pgfplots}
 \hypersetup{
     colorlinks,
     citecolor=blue,
@@ -341,7 +340,7 @@ Let $N$ be the number of coin flips that it takes to make the first head appear.
 \[ \E[N] = \frac{1}{p} \text{ and } \var(N) = \frac{1-p}{p^2}.\]
 Let $D_i$ be the random variable corresponding to each roll of the dice. Note that $\E[D_i] = 3.5$ and that $\var(D_i) = \frac{17.5}{6}$. Let $n \in \N_+$, so that $S = D_1 + D_2 + ... + D_n$ when $N = n$. Then 
 \[ \E[S | N = n] = \E[D_1 + ... + D_n | N = n] = n \E[D_1] = 3.5n.\]
-By the definition of conditional expectation, we have $\E[S | N] = 3.5N$. By ? we have 
+By the definition of conditional expectation, we have $\E[S | N] = 3.5N$. By Exercise 4 we have 
 \[ \E[S] = \E[ \E[ S | N]] = \E[3.5 N] = 3.5 \E[N] = \frac{3.5}{p}.\]
 
 From the definition of conditional variance and Corollary 2.25, we have 

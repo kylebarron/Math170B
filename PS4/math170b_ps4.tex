@@ -1,0 +1,354 @@
+\documentclass{article}
+
+\setlength{\oddsidemargin}{0 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+
+\usepackage{amsmath,amsfonts,graphicx}
+\usepackage{amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{pgfplots}
+\hypersetup{
+    colorlinks,
+    citecolor=blue,
+    filecolor=blue,
+    linkcolor=blue,
+    urlcolor=blue
+}
+\usepackage{pgfplots}
+
+%
+
+\makeatletter
+\newcommand*\dotp{\mathpalette\dotp@{.5}}
+\newcommand*\dotp@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+\makeatletter
+\newsavebox\myboxA
+\newsavebox\myboxB
+\newlength\mylenA
+
+\newcommand*\xoverline[2][0.75]{%
+    \sbox{\myboxA}{$\m@th#2$}%
+    \setbox\myboxB\null% Phantom box
+    \ht\myboxB=\ht\myboxA%
+    \dp\myboxB=\dp\myboxA%
+    \wd\myboxB=#1\wd\myboxA% Scale phantom
+    \sbox\myboxB{$\m@th\overline{\copy\myboxB}$}%  Overlined phantom
+    \setlength\mylenA{\the\wd\myboxA}%   calc width diff
+    \addtolength\mylenA{-\the\wd\myboxB}%
+    \ifdim\wd\myboxB<\wd\myboxA%
+       \rlap{\hskip 0.5\mylenA\usebox\myboxB}{\usebox\myboxA}%
+    \else
+        \hskip -0.5\mylenA\rlap{\usebox\myboxA}{\hskip 0.5\mylenA\usebox\myboxB}%
+    \fi}
+\makeatother
+
+%
+
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\lecture}[4]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf Math 170B
+	\hfill Winter 2017} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Problem Set #1 \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Lecturer: #3 \hfill #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Problem Set #1}{Problem Set #1}
+  }
+
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheoremstyle{break}
+  {\topsep}{\topsep}%
+  {\itshape}{}%
+  {\bfseries}{}%
+  {\newline}{}%
+\theoremstyle{break}
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{lemma*}{Lemma}
+\newtheorem{problem}{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}{Example}
+
+\newenvironment{solution}{{\bf Solution:}}{\hfill\rule{2mm}{2mm}}
+\renewenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\var}{\mathrm{Var}}
+\newcommand{\cov}{\mathrm{Cov}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\X}{\mathbb{X}}
+\renewcommand{\L}{\mathcal{L}}
+\renewcommand{\P}{\mathbf{P}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\interior}{\text{int}}
+\newcommand{\exterior}{\text{ext}}
+\newcommand{\bigci}{\mathrel{\text{\scalebox{1.07}{$\perp\mkern-10mu\perp$}}}}
+\newcommand{\nsum}{\sum_{n=0}^{\infty}}
+
+\setlist[itemize]{topsep=0pt}
+\setlist[enumerate]{topsep=0pt}
+
+\begin{document}
+
+\lecture{4}{}{Steven Heilman}{Kyle Barron}
+
+\section*{Exercise 1}
+
+Compute the characteristic function of a uniformly distributed random variable on $[-1,1]$.  (Some of the following formulas might help to simplify your answer: $e^{it}=\cos(t)+i\sin (t)$, $\cos(t)=[e^{it}+e^{-it}]/2$, $\sin(t)=[e^{it}-e^{-it}]/[2i]$, $t\in\R$.)  (Here $i\coloneqq \sqrt{-1}$.)
+
+\begin{solution}
+\begin{align*}
+\phi_X(t) &= \E[e^{itx}] \\
+	&= \frac{1}{2} \int_{-1}^1 e^{itx} dx \\
+	&= \left. \frac{1}{2 i t} e^{itx} \right|_{-1}^1 \\
+	&= \frac{1}{2it} \left( e^{it} - e^{-it} \right) \\
+	&= \frac{\sin(t)}{t}.
+\end{align*}
+\end{solution}
+
+\section*{Exercise 2}
+
+Let $X$ be a random variable.  Assume we can differentiate under the expected value of $\E e^{itX}$ any number of times.  For any positive integer $n$, show that
+\[ \left. \frac{d^n}{dt^n} \phi_{X}(t) \right|_{t=0}=i^{n}\E(X^{n}).\]
+So, in principle, all moments of $X$ can be computed just by taking derivatives of the characteristic function.
+
+\begin{proof}
+
+\begin{align*}
+\frac{d^n}{dt^n} \phi_X(t) &= \frac{d^n}{dt^n} \int_{-\infty}^\infty e^{itx} f_X(x) dx\\
+	&= \int_{-\infty}^\infty \frac{d^n}{dt^n} e^{itx} f_X(x) dx \\
+	&= \int_{-\infty}^\infty (ix)^n e^{itx} f_X(x) dx.
+\end{align*}
+Now considering the special case where $t = 0$, we get that 
+\begin{align*}
+\left. \frac{d^n}{dt^n} \phi_X(t) \right|_{t=0} &= \int_{-\infty}^\infty (ix)^n f_X(x) dx \\
+	&= i^n \int_{-\infty}^\infty x^n f_X(x) dx \\
+	&= i^n \E[X^n]
+\end{align*}
+\end{proof}
+
+\section*{Exercise 3}
+Let $X$ be a random variable such that $\E[ |X|^{3}] <\infty$.  Prove that for any $t\in\R$,
+\begin{align*}
+\E e^{itX}=1+it\E X-t^{2}\E X^{2}/2+o(t^{2}).
+\end{align*}
+That is,
+$$\lim_{t \rightarrow 0}t^{-2} |\E e^{itX}-[1+it\E X-t^{2}\E X^{2}/2]|=0.$$
+(Hint: it may be helpful to use Jensen's inequality to first justify that $\E |X|<\infty$ and $\E X^{2}<\infty$.  Then, use the Taylor expansion with error bound: $e^{iy}=1+iy-y^{2}/2-(i/2)\int_{0}^{y}(y-s)^{2}e^{is}ds$, which is valid for any $y\in\R$.)
+
+Actually, this same bound holds only assuming $\E X^{2}<\infty$, but the proof of that bound requires things we have not discussed.
+
+\begin{solution}
+Let $X$ be a random variable with $\E[|X|^3] < \infty$. I'll first show that $\E[|X|] < \infty$. Let $f(X) = |X|^3$; note that this is a convex function. 
+Then $\E[f(X)] = \E[|X|^3]$ and $f(\E[X]) = |\E[X]|^3 = \E[X]^3$. We can now use Jensen's inequality. 
+\[ \infty > \E[|X|^3] \geq |\E[X]|^3 = \E[X]^3.\]
+Therefore, $\E[X] < \infty$.
+
+
+
+\end{solution}
+
+
+\section*{Exercise 4}
+(Convolution is Associative.)
+Let $g,h,d\colon\R\to\R$.  Then for any $t\in\R$,
+$$((g*h)*d)(t)=(g*(h*d))(t)$$
+
+
+\begin{proof}
+
+\begin{align*}
+((g \ast h) \ast d)(t)&= \int_{-\infty}^\infty (g \ast h)(x) d(t-x) dx \\
+	&= \int_{-\infty}^\infty \int_{-\infty}^\infty (g(s) h(x-s) ds ) d(t-x) dx \\
+	&= \int_{-\infty}^\infty \int_{-\infty}^\infty g(s) h(x-s) d(t-x) ds dx
+\end{align*}
+
+\end{proof}
+
+\section*{Exercise 5}
+Let $X,Y,Z$ be independent and uniformly distributed on $[0,1]$.  Note that $f_{X}$ is not a continuous function.
+
+Using convolution, compute $f_{X+Y}$.  Draw $f_{X+Y}$.  Note that $f_{X+Y}$ is a continuous function, but it is not differentiable at some points.
+
+Using convolution, compute $f_{X+Y+Z}$.  Draw $f_{X+Y+Z}$.  Note that $f_{X+Y+Z}$ is a differentiable function, but it does not have a second derivative at some points.
+
+Make a conjecture about how many derivatives $f_{X_{1}+\cdots+X_{n}}$ has, where $X_{1},\ldots,X_{n}$ are independent and uniformly distributed on $[0,1]$.  You do not have to prove this conjecture.  The idea of this exercise is that convolution is a kind of average of functions.  And the more averaging you do, the more derivatives $f_{X_{1}+\cdots+X_{n}}$ has.
+
+\begin{solution}
+Let $X,Y,Z$ be independent and uniformly distributed over $[0,1]$. First I'll compute $f_{X+Y}$. Recall that Proposition 2.60 says that $f_{X+Y}(t) = (f_X \ast f_Y)(t)$, for all $t \in \R$. Recall that by Definition 2.59, $(g \ast h)(t) \coloneqq \int_{-\infty}^\infty g(x) h(t-x) dx$, for all $t \in \R$. Therefore,
+\begin{align*}
+f_{X+Y}(t) &= (f_X \ast f_Y)(t) \\
+	&= \int_{-\infty}^\infty f_X(x) f_Y(t-x) dx \\
+	&= \int_0^1 1 \cdot f_Y(t-x) dx \\
+	&= \int_{x \in [0,1]\cap[t-1,t]} 1 dx
+\end{align*}
+
+
+
+
+
+\end{solution}
+
+
+\section*{Exercise 6}
+Construct two random variables $X,Y$ such that $X$ and $Y$ are each uniformly distributed on $[0,1]$, and such that $\P(X+Y=1)=1$.
+% Y=1-X
+
+Then construct two random variables $W,Z$ such that $W$ and $Z$ are each uniformly distributed on $[0,1]$, and such that $W+Z$ is uniformly distributed on $[0,2]$.
+%X=Y
+
+(Hint: there is a way to do each of the above problems with about one line of work.  That is, there is a way to solve each problem without working very hard.)
+
+\begin{solution}
+For the first part, let $X$ be uniformly distributed on $[0,1]$ with $f_X(x) = 1$ for $x \in [0,1]$. Let $Y = 1 - X$. Then $Y$ is also distributed uniformly on $[0,1]$ and $X + Y = X + 1 - X = 1$. 
+
+For the second part, let $W$ be distributed as $f_W(x) = 1$ for $x \in [0,1]$. Let $Z = W$. Then 
+\[ \P(W + Z = t) = \P(2W = t) = \P\left(W = \frac{t}{2}\right).
+\]
+So $f_{W+Z}(t) = \frac{1}{2}$ for $t \in (0,2)$.
+\begin{comment}
+\begin{align*}
+f_W(x) &= \P(W = x) \\
+	&= \P(2W = 2x) \\
+	&= \P(W + Z = 2x)
+\end{align*}
+\end{comment}
+\end{solution}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

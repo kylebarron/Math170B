@@ -1,0 +1,222 @@
+\documentclass{article}
+
+\setlength{\oddsidemargin}{0 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+
+\usepackage{amsmath,amsfonts,graphicx}
+\usepackage{amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{pgfplots}
+\hypersetup{
+    colorlinks,
+    citecolor=blue,
+    filecolor=blue,
+    linkcolor=blue,
+    urlcolor=blue
+}
+\usepackage{pgfplots}
+
+%
+
+\makeatletter
+\newcommand*\dotp{\mathpalette\dotp@{.5}}
+\newcommand*\dotp@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+\makeatletter
+\newsavebox\myboxA
+\newsavebox\myboxB
+\newlength\mylenA
+
+\newcommand*\xoverline[2][0.75]{%
+    \sbox{\myboxA}{$\m@th#2$}%
+    \setbox\myboxB\null% Phantom box
+    \ht\myboxB=\ht\myboxA%
+    \dp\myboxB=\dp\myboxA%
+    \wd\myboxB=#1\wd\myboxA% Scale phantom
+    \sbox\myboxB{$\m@th\overline{\copy\myboxB}$}%  Overlined phantom
+    \setlength\mylenA{\the\wd\myboxA}%   calc width diff
+    \addtolength\mylenA{-\the\wd\myboxB}%
+    \ifdim\wd\myboxB<\wd\myboxA%
+       \rlap{\hskip 0.5\mylenA\usebox\myboxB}{\usebox\myboxA}%
+    \else
+        \hskip -0.5\mylenA\rlap{\usebox\myboxA}{\hskip 0.5\mylenA\usebox\myboxB}%
+    \fi}
+\makeatother
+
+%
+
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\lecture}[4]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf Math 170B
+	\hfill Winter 2017} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Problem Set #1 \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Lecturer: #3 \hfill #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Problem Set #1}{Problem Set #1}
+  }
+
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheoremstyle{break}
+  {\topsep}{\topsep}%
+  {\itshape}{}%
+  {\bfseries}{}%
+  {\newline}{}%
+\theoremstyle{break}
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{lemma*}{Lemma}
+\newtheorem{problem}{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}{Example}
+
+\newenvironment{solution}{{\bf Solution:}}{\hfill\rule{2mm}{2mm}}
+\renewenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\var}{\mathrm{Var}}
+\newcommand{\cov}{\mathrm{Cov}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\X}{\mathbb{X}}
+\renewcommand{\L}{\mathcal{L}}
+\renewcommand{\P}{\mathbf{P}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\interior}{\text{int}}
+\newcommand{\exterior}{\text{ext}}
+\newcommand{\bigci}{\mathrel{\text{\scalebox{1.07}{$\perp\mkern-10mu\perp$}}}}
+\newcommand{\nsum}{\sum_{n=0}^{\infty}}
+
+\setlist[itemize]{topsep=0pt}
+\setlist[enumerate]{topsep=0pt}
+
+\begin{document}
+
+\lecture{5}{}{Steven Heilman}{Kyle Barron}
+
+
+
+\subsection*{Exercise 1}
+
+
+Let $X$ be a standard Gaussian random variable.  Let $t>0$ and let $n$ be a positive even integer.  Show that
+$$\P(X>t)\leq\frac{(n-1)(n-3)\cdots(3)(1)}{t^{n}}.$$
+That is, the function $t\mapsto\P(X>t)$ decays faster than any monomial.
+
+
+\subsection*{Exercise 2}
+
+
+Let $X$ be a random variable.  Let $t>0$.  Show that
+$$\P(|X|>t)\leq\frac{\E X^{4}}{t^{4}}.$$
+
+
+\subsection*{Exercise 3}
+(The Chernoff Bound.)
+Let $X$ be a random variable and let $r>0$.  Show that, for any $t>0$,
+$$\P(X>r)\leq e^{-tr}M_{X}(t).$$
+Consequently, if $X_{1},\ldots,X_{n}$ are independent random variables with the same CDF, and if $r,t>0$,
+$$\P\left(\frac{1}{n}\sum_{i=1}^{n}X_{i}>r\right)\leq e^{-trn}(M_{X_{1}}(t))^{n}.$$
+For example, if $X_{1},\ldots,X_{n}$ are independent Bernoulli random variables with parameter $0<p<1$,  and if $r,t>0$,
+$$\P\left(|\frac{X_{1}+\cdots+X_{n}}{n}-p|>r\right)\leq e^{-trn}(p(1-p)(1+e^{t}))^{n}.$$
+And if we choose $t=1/10$, then the quantity $\P\left(\frac{1}{n}|\sum_{i=1}^{n}(X_{i}-p)|>r\right)$ becomes exponentially small as either $n$ or $r$ become large.  That is, $\frac{1}{n}\sum_{i=1}^{n}X_{i}$ becomes very close to its mean.  Importantly, the Chernoff bound is much stronger than either Markov's or Cheyshev's inequality, since they only respectively imply that
+$$\P\left(|\frac{X_{1}+\cdots+X_{n}}{n}-p|>r\right)\leq \frac{2p(1-p)}{nr},   % E|X-p| = p (1-p) + (1-p)p=2p(1-p)
+\quad\P\left(|\frac{X_{1}+\cdots+X_{n}}{n}-p|>r\right)\leq \frac{p(1-p)}{nr^{2}}.$$ % var(X-p)= E(X-p)^2 = p(1-p)^2+(1-p)p^2= p(1-p)[1-p+p]=p(1-p)
+%In particular, for any $r>0$,
+%$$\lim_{n\to\infty}\P\left(\abs{\frac{X_{1}+\cdots+X_{n}}{n}-p}>r\right)=0$$
+%
+%what is M_X-p for Bernoulli X?  It is 1*(-p)(1-p)+[e^t](1-p)*p=p(1-p)[-1+e^t]
+%  what is M_{|X-p|}?  it is p*(1-p)+e^t p(1-p)= p(1-p)[1+e^t]
+
+
+\subsection*{Exercise 4}
+
+Let $X_{1},X_{2},\ldots$ be independent random variables, each with exponential distribution with parameter $\lambda=1$.  For any $n \geq 1$, let $Y_{n}\coloneqq\max(X_{1},\ldots,X_{n})$.  Let $0<a<1<b$.  Show that $\P(Y_{n}\leq a\log n)\to0$ as $n\to\infty$, and $\P(Y_{n}\leq b\log n)\to1$ as $n\to\infty$.  Conclude that $Y_{n}/\log n$ converges to $1$ in probability as $n\to\infty$.
+
+
+\subsection*{Exercise 5}
+
+We say that random variables $X_{1},X_{2},\ldots$ converge to a random variable $X$ in $L_{2}$ if
+$$\lim_{n\to\infty}\E|X_{n}-X|^{2}=0.$$
+Show that, if $X_{1},X_{2},\ldots$ converge to $X$ in $L_{2}$, then $X_{1},X_{2},\ldots$ converges to $X$ in probability.
+
+Is the converse true?  Prove your assertion.
+
+
+
+\subsection*{Exercise 6}
+
+
+Let $X_{1},X_{2},\ldots$ be independent, identically distributed random variables such that $\E|X|<\infty$ and $\mathrm{var}(X)<\infty$.  For any $n\geq1$, define
+$$Y_{n}\coloneqq\frac{1}{n}\sum_{i=1}^{n}X_{i}^{2}.$$
+Show that $Y_{1},Y_{2},\ldots$ converges in probability.  Express the limit in terms of $\E X$ and $\mathrm{var}(X)$.
+
+
+
+
+
+
+
+
+
+\end{document}

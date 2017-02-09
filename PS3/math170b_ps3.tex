@@ -160,82 +160,110 @@ Let $X$ be a random variable. Assume that $M_X(t)$ exists for all $t \in \R$, an
 So, in principle, all moments of $X$ can be computed just by taking derivatives of the moment generating function.
 
 
-
+\begin{solution}
+Recall from the definition of a power series that we can write a function about $x_0$ using 
+\begin{align*}
+f(x) &= f(x_0) + f'(x_0)(x-x_0) + ... + \frac{f^{(n)}(x_0)}{n!} (x-x_0)^n \\
+	&= \sum_{n=0}^\infty \frac{f^{(n)}(x_0)}{n!} (x-x_0)^n
+\end{align*}
+Therefore we may write the moment generating function as
+\begin{align*}
+M_X(t) &= \sum_{n=0}^\infty \frac{ \left. (M_X(t))^{(n)} \right|_{t= 0}}{n!} t^n = \sum_{n=0}^\infty \frac{\E[X^n]}{n!} t^n.
+\end{align*}
+Therefore 
+\[ \left. \frac{d^n}{dt^n} \right|_{t = 0} M_X(t) = \E[X^n]. \]
+\end{solution}
 
 
 \subsection*{Exercise 2}
 Let $X$ be a standard Gaussian random variable. Compute an explicit formula for the moment generating function of $X$. (Hint: completing the square might be helpful.) From this explicit formula, compute an explicit formula for all moments of the Gaussian random variable. (The $2n^{th}$ moment of $X$ should be something resembling a factorial.)
 
 
+\begin{solution}
+Let $X$ be a standard Gaussian random variable. So $f_X(x) = \frac{1}{\sqrt{2 \pi}}  e^{-x^2/2}$.
+Then
+\begin{align*}
+M(t) &= \int_{-\infty}^\infty e^{tx} \frac{1}{\sqrt{2 \pi}}  e^{-x^2/2} dx \\
+&= \frac{1}{\sqrt{2 \pi}} \int_{-\infty}^\infty e^{tx -x^2/2} dx.
+\end{align*}
+I now want to complete the square on $tx -x^2/2$ to make the integral easier to compute.
+\begin{align*}
+tx -x^2/2 &= - \frac{1}{2}x^2 + tx \\
+	&= -\frac{1}{2} \left( x + \frac{t}{2 (-\frac{1}{2})} \right)^2 + \frac{t^2}{2} \\
+	&= - \frac{1}{2} (x - t)^2 + \frac{t^2}{2}.
+\end{align*}
+Now substituting this back into the integral, we get
+\begin{align*}
+M(t) &= \frac{1}{\sqrt{2 \pi}} \int_{-\infty}^\infty e^{- \frac{1}{2} (x - t)^2 + \frac{t^2}{2}} dx \\
+&= \frac{1}{\sqrt{2 \pi}} \int_{-\infty}^\infty e^{- \frac{1}{2} (x - t)^2} e^{\frac{t^2}{2}} dx \\
+&=  e^{\frac{t^2}{2}} \frac{1}{\sqrt{2 \pi}} \int_{-\infty}^\infty e^{- \frac{1}{2} (x - t)^2}  dx \\
+&= e^{\frac{t^2}{2}}.
+\end{align*}
+Note that the third inequality is true because $e^{\frac{t^2}{2}}$ does not depend  on $x$ and the fourth is true because the integral represents the PDF of a normally distributed random variable, which integrates to 1.
 
-
-
-
-
-
+Now we can represent $M(t)$ using a Taylor series:
+\begin{align*}
+M(t) &= M(0) + M'(0) t + M''(0) \frac{t^2}{2!} + M'''(0) \frac{t^3}{3!} + ... \\
+&= M(0) + \E[X] t + \E[X^2] \frac{t^2}{2!} +  \E[X^3] \frac{t^3}{3!} + ...
+\end{align*}
+But recall that we can also represent $e^{t^2/2}$ in terms of the definition of the exponential:
+\begin{align*}
+M(t) = e^{t^2/2} &= \sum_{j=0}^\infty \frac{1}{j!} \left(\frac{t^2}{2}\right)^j \\
+&= \sum_{j=0}^\infty \frac{(2j)!}{j! 2!} \cdot \frac{t^{2j}}{(2j)!}.
+\end{align*} 
+Putting the above two equations together, we see that
+\[\sum_{j=0}^\infty \frac{(2j)!}{j! 2!} \cdot \frac{t^{2j}}{(2j)!} = M(0) + \E[X] t + \E[X^2] \frac{t^2}{2!} +  \E[X^3] \frac{t^3}{3!} + ...
+\]
+Note that the left hand side only has even powers, so the terms on the right hand side with odd powers of $t$ are zero. Therefore $\E[X^n]$ for $n$ odd is zero. So 
+\begin{align*}
+\E[X^{2j}] &= \frac{(2j)!}{j!2^j} \\
+\E[X^j] &= \frac{j!}{2^{j/2} (j/2)!} \text{ for } j \text{ even.}
+\end{align*}
+\end{solution}
 
 
 \subsection*{Exercise 3}
 Construct two random variables $X$, $Y: \Omega \rightarrow \R$ such that $X \not = Y$ but $M_X(t)$, $M_Y(t)$ exist for all $t \in \R$, and such that $M_X(t) = M_Y(t)$ for all $t \in \R$.
 
-
-
-
-
-
-
+\begin{solution}
+Let $X$ be uniformly distributed on $[-1,1]$, and let $Y = -X$. So $Y$ is also uniformly distributed on $[-1,1]$. Note that $X$ and $Y$ are different functions on the sample space but have the same distribution. Since they have the same distribution, $M_X(t) = M_Y(t)$ for all $t$.
+\end{solution}
 
 \subsection*{Exercise 4}
-(Check expectations notations in original document)
-
-Unfortunately, there exist random variables $X$, $Y$ such that $\E[X]^n = \E[Y]^n$ for all $n = 1, 2, 3, ...$ but such that $X$, $Y$ do not have the same CDF. First, explain why this does not contradict the L\'evy Continuity Theorem, Weak Form. Now, let $-1 < a < 1$, and define a density
+Unfortunately, there exist random variables $X$, $Y$ such that $\E[X^n] = \E[Y^n]$ for all $n = 1, 2, 3, ...$ but such that $X$, $Y$ do not have the same CDF. First, explain why this does not contradict the L\'evy Continuity Theorem, Weak Form. Now, let $-1 < a < 1$, and define a density
 \[ f_a(x) \coloneqq \begin{cases}
 \frac{1}{x \sqrt{2 \pi}} e^{- \frac{(\log x )^2}{2}} (1 + a \sin(2\pi \log x)), & \text{ if } x > 0 \\
 0, & \text{ otherwise.}
 \end{cases}
 \]
-Suppose $X_a$ has density $f_a$. If $-1 < a, b < 1$, show that $\E[X]_a^n = \E[X]_b^n$ for all $n = 1,2,3,...$. (Hint: write out the integrals, and make a change of variables $s = \log(x) - n$.)
+Suppose $X_a$ has density $f_a$. If $-1 < a, b < 1$, show that $\E[X_a^n] = \E[X_b^n]$ for all $n = 1,2,3,...$. (Hint: write out the integrals, and make a change of variables $s = \log(x) - n$.)
+
+\begin{solution}
+In exercise 1, we proved that the $n^{th}$ moment is equal to the $n^{th}$ derivative of the moment generating function evaluated at zero. 
+This is only true, however, when the moment generating function equals its power series, and its power series converges. If $\E[X^n] = \E[Y^n]$ for all $n \in \Z_+$, but the moment generating function does not exist (i.e. the integral to create it goes to infinity), then $X$ and $Y$ may not have the same CDF.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Now let $-1 < a < 1$ and define
+\[ f_a(x) \coloneqq \begin{cases}
+\frac{1}{x \sqrt{2 \pi}} e^{- \frac{(\log x )^2}{2}} (1 + a \sin(2\pi \log x)), & \text{ if } x > 0 \\
+0, & \text{ otherwise.}
+\end{cases}
+\]
+Define a change of variables $s = \log(x) - n$. Then $ds = \frac{1}{x}$ and $x = e^{s+n}$.
+\begin{align*}
+\E[X^n_a] &= \int_0^\infty x^n \frac{1}{x \sqrt{2 \pi}} e^{- \frac{(\log x )^2}{2}} (1 + a \sin(2\pi \log x)) dx \\
+&= \frac{1}{\sqrt{2 \pi}} \int_{-\infty}^\infty e^{(s+n)n} e^{-(s+n)^2/2} (1 + a \sin (2 \pi (s+n))) ds \\
+&= \frac{1}{\sqrt{2 \pi}} \int_{-\infty}^\infty e^{sn + n^2 - \frac{s^2}{2} -sn - \frac{n^2}{2}} (1 + a \sin (2 \pi (s+n))) ds \\
+&= \frac{1}{\sqrt{2 \pi}} \int_{-\infty}^\infty e^{\frac{n^2 - s^2}{2}} (1 + a \sin (2 \pi (s+n))) ds \\
+&= \frac{1}{\sqrt{2 \pi}} e^{\frac{n^2}{2}} \int_{-\infty}^\infty e^{\frac{- s^2}{2}} (1 + a \sin (2 \pi (s+n))) ds \\
+&= \frac{1}{\sqrt{2 \pi}} e^{\frac{n^2}{2}} \int_{-\infty}^\infty \left( e^{\frac{- s^2}{2}} +  e^{\frac{- s^2}{2}} a \sin (2 \pi (s+n))) \right) ds.
+\end{align*}
+Note however, that $\sin$ integrates to $\cos$, and $\cos$ is an even function. Therefore $\int_{-\infty}^\infty \sin(x) dx = 0$. This means that the right side of the above integral evaluates to zero.
+Therefore,
+\begin{align*}
+\E[X^n_a] &= e^{\frac{n^2}{2}} \frac{1}{\sqrt{2 \pi}}  \int_{-\infty}^\infty e^{\frac{- s^2}{2}} ds \\
+&= e^{\frac{n^2}{2}}.
+\end{align*}
+Therefore, $\E[X^n_a] $ does not depend on $a$, so $\E[X_a^n] = \E[X_b^n]$ for all $n = 1,2,3,...$, for any $ -1 < a,b < 1$.
+\end{solution}
 \end{document}
