@@ -238,9 +238,16 @@ $$((g*h)*d)(t)=(g*(h*d))(t)$$
 \begin{align*}
 ((g \ast h) \ast d)(t)&= \int_{-\infty}^\infty (g \ast h)(x) d(t-x) dx \\
 	&= \int_{-\infty}^\infty \int_{-\infty}^\infty (g(s) h(x-s) ds ) d(t-x) dx \\
-	&= \int_{-\infty}^\infty \int_{-\infty}^\infty g(s) h(x-s) d(t-x) ds dx
+	&= \int_{-\infty}^\infty \int_{-\infty}^\infty g(s) h(x-s) d(t-x) ds dx.
 \end{align*}
-
+Now switching the order of integration gives:
+\begin{align*}
+((g \ast h) \ast d)(t)&= \int_{-\infty}^\infty g(s) \left[ \int_{-\infty}^\infty h(x-s) d(t-x) dx \right] ds \\
+	&= \int_{-\infty}^\infty g(s) \left[ \int_{-\infty}^\infty h((x+s)-s) d(t-(x+s)) dx \right] ds \\
+	&= \int_{-\infty}^\infty g(s) \left[ \int_{-\infty}^\infty h(x) d((t-s)-x) dx \right] ds \\
+	&= \int_{-\infty}^\infty g(s) \left[ (h \ast d)(t - s) \right] ds \\
+	&= (g*(h*d))(t)
+\end{align*}
 \end{proof}
 
 \section*{Exercise 5}
