@@ -163,13 +163,6 @@ That is, the function $t\mapsto\P(X>t)$ decays faster than any monomial.
 \begin{proof}
   Let $X$ be a standard Gaussian random variable and let $t > 0$. Let $n$ be a positive even integer. Recall that from problem set 3, question 2, we found that for $n$ even, $\E[X^n] = (n-1)(n-3) \cdots 1$. Now using the Markov Inequality we have
   \[
-  \P(X > t) = \P(X^n > t^n) \leq \frac{\E[X^n]}{t^n} = \frac{(n-1)(n-3) \cdots 1}{t^n}.
-  \]
-\end{proof}
-
-\begin{proof}
-  Let $X$ be a standard Gaussian random variable and let $t > 0$. Let $n$ be a positive even integer. Recall that from problem set 3, question 2, we found that for $n$ even, $\E[X^n] = (n-1)(n-3) \cdots 1$. Now using the Markov Inequality we have
-  \[
   \P(X > t) \leq \P(|X| > t) = \P(X^n > t^n) \leq \frac{\E[X^n]}{t^n} = \frac{(n-1)(n-3) \cdots 1}{t^n},
   \]
   where the second equality is since $n$ is even, and the inequality is using the Markov Inequality, since $X^n$ is nonnegative.
@@ -210,12 +203,38 @@ And if we choose $t$ appropriately,
 %what is M_X-p for Bernoulli X?  It is 1*(-p)(1-p)+[e^t](1-p)*p=p(1-p)[-1+e^t]
 %  what is M_{|X-p|}?  it is p*(1-p)+e^t p(1-p)= p(1-p)[1+e^t]
 
+\begin{proof}
+  Let $X$ be a random variable and let $r > 0$. Then we have that
+  \begin{align*}
+    \P(X \geq r) = \P(e^{tX} \geq e^{tr}) \leq \frac{\E[e^{tX}]}{e^{tr}} = e^{-tr} M_X(t),
+  \end{align*}
+  where the first equality uses that $t > 0$ so the exponential function is increasing, and the inequality uses the Markov inequality (which is valid since $e^x \geq 0$ for all $x$).
+
+  Now suppose that $X_1, ... X_n$ are independent and identically distributed. Then
+  \begin{align*}
+    \P \left( \frac{1}{n} \sum_{i=1}^n X_i > r \right) &\leq e^{-tr} M_{\frac{1}{n} \sum_{i=1}^n X_i} (t) \\
+    &= e^{-tr} (M_{\frac{1}{n} X_1} (t))^n \\
+%    &= e^{-tr} (M_{X_1} (t))^n
+  \end{align*}
+\end{proof}
 
 
 
 \subsection*{Exercise 4}
 
 Let $X_{1},X_{2},\ldots$ be independent random variables, each with exponential distribution with parameter $\lambda=1$.  For any $n \geq 1$, let $Y_{n}\coloneqq\max(X_{1},\ldots,X_{n})$.  Let $0<a<1<b$.  Show that $\P(Y_{n}\leq a\log n)\to0$ as $n\to\infty$, and $\P(Y_{n}\leq b\log n)\to1$ as $n\to\infty$.  Conclude that $Y_{n}/\log n$ converges to $1$ in probability as $n\to\infty$.
+
+\begin{proof}
+  Let $X_1, X_2, ...$ be independent random variables, each exponentially distributed with $\lambda = 1$. For any $n \geq 1$, define $Y_n \coloneqq \max(X_1, ... , X_n).$ First let $c > 0$. Then
+  \begin{align*}
+    \P(Y_n \leq c \log n) &= \P( \max(X_1, ... , X_n) \leq c \log n) \\
+    &= \P(X_1 \leq c \log n \cap X_2 \leq c \log n \cap \cdots \cap X_n \leq c \log n) \\
+    &= \P(X_1 \leq c \log n) \cdots \P(X_n \leq c \log n) \\
+    &= \P(X_1 \leq c \log n)^n \\
+    &= (1 - e^{-c \log n})^n \\
+    &= (1 - ne^{-c})^n \\
+  \end{align*}
+\end{proof}
 
 
 
@@ -252,7 +271,7 @@ Is the converse true?  Prove your assertion.
   \]
   So $X_1, X_2, ...$ converge in probability.
 
-  Recall that 
+  Recall that
 
 \end{proof}
 
@@ -281,7 +300,6 @@ Show that $Y_{1},Y_{2},\ldots$ converges in probability.  Express the limit in t
   \end{align*}
   Now letting $n \rightarrow \infty$, we have that $\frac{\var(X_1^2)}{\epsilon^2 n} \rightarrow 0$. Therefore, $Y_1, Y_2, ...$ converges in probability to $\E[X_1^2] = \var(X_1) + \E[X_1]^2$.
 \end{proof}
-
 
 
 
