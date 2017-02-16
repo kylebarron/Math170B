@@ -212,13 +212,14 @@ And if we choose $t$ appropriately,
 
   Now suppose that $X_1, ... X_n$ are independent and identically distributed. Then
   \begin{align*}
-    \P \left( \frac{1}{n} \sum_{i=1}^n X_i > r \right) &\leq e^{-tr} M_{\frac{1}{n} \sum_{i=1}^n X_i} (t) \\
-    &= e^{-tr} (M_{\frac{1}{n} X_1} (t))^n \\
+    \P \left( \frac{1}{n} \sum_{i=1}^n X_i > r \right) &= \P \left( \sum_{i=1}^n X_i > rn \right)\\
+    &\leq e^{-trn} M_{ \sum_{i=1}^n X_i} (t) \\
+    &= e^{-trn} \left(M_{X_1} (t)\right)^n \\
+%    &= e^{-tr} \left( \E\left[e^{\frac{tX_1}{n}}\right] \right)^n \\
+%    &= e^{-tr} \left( \E\left[e^{\frac{tX_1}{n}}\right] \right)^n
 %    &= e^{-tr} (M_{X_1} (t))^n
   \end{align*}
 \end{proof}
-
-
 
 \subsection*{Exercise 4}
 
