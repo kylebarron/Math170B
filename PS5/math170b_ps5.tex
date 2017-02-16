@@ -299,7 +299,7 @@ Show that $Y_{1},Y_{2},\ldots$ converges in probability.  Express the limit in t
     &= \frac{1}{\epsilon^2 n^2} \var(X_1^2 + ... x_n^2) \\
     &= \frac{1}{\epsilon^2 n} \var(X_1^2).
   \end{align*}
-  Now letting $n \rightarrow \infty$, we have that $\frac{\var(X_1^2)}{\epsilon^2 n} \rightarrow 0$. Therefore, $Y_1, Y_2, ...$ converges in probability to $\E[X_1^2] = \var(X_1) + \E[X_1]^2$. (Note that this is well defined since both the variance and mean of $X_1$ are finite.)
+  Now letting $n \rightarrow \infty$, we have that $\frac{\var(X_1^2)}{\epsilon^2 n} \rightarrow 0$. Since probabilities are nonnegative and we have that $\P(|Y_n - Y| > \epsilon) \leq \frac{\var(X_1^2)}{\epsilon^2 n}$, we know that $\P(|Y_n - Y| > \epsilon) \rightarrow 0$. Therefore, $Y_1, Y_2, ...$ converges in probability to $\E[X_1^2] = \var(X_1) + \E[X_1]^2$. (Note that this is well defined since both the variance and mean of $X_1$ are finite.)
 \end{proof}
 
 
