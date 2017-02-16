@@ -266,13 +266,13 @@ Is the converse true?  Prove your assertion.
   \[
     \P(|X_n - X| > \epsilon) \leq \frac{\E[(X_n - X)^2]}{\epsilon^2}.
   \]
-  Since we know that $X_1, X_2, ...$ converge to $X$ in $L^2$,
+  Since we know that $X_1, X_2, ...$ converge to $X$ in $L_2$,
   \[
     \lim_{n \rightarrow \infty} \E[(X_n - X)^2] = 0 \Rightarrow \lim_{n \rightarrow \infty} \P(|X_n - X| > \epsilon) = 0.
   \]
   So $X_1, X_2, ...$ converge in probability.
 
-  Recall that
+  The converse is not true: convergence in probability does not imply convergence in $L_2$Recall that
 
 \end{proof}
 
@@ -291,7 +291,7 @@ Show that $Y_{1},Y_{2},\ldots$ converges in probability.  Express the limit in t
   Let $\epsilon > 0$. To show that $Y_1, Y_2, ...$ converges in probability we need to show that $\lim_{n \rightarrow \infty} \P(|Y_n - Y| > \epsilon) = 0$. I'll show that $Y$, the limit of $Y_n$ as $n \rightarrow \infty$, is equal to the second moment of $X_1$ (which is the same for all $X$ since they're independent and identically distributed).
   \begin{align*}
     \P(|Y_n - Y| > \epsilon) &= P\left( \left| \frac{x_1^2 + ... + x_n^2}{n} - \E[X_1^2] \right| > \epsilon \right) \\
-    &= \frac{1}{\epsilon^2} \E\left[ \left| \frac{x_1^2 + ... + x_n^2}{n} - \E[X_1^2] \right|^2 \right] \\
+    &\leq \frac{1}{\epsilon^2} \E\left[ \left| \frac{x_1^2 + ... + x_n^2}{n} - \E[X_1^2] \right|^2 \right] \\
     &= \frac{1}{\epsilon^2} \E\left[ \left( \frac{x_1^2 + ... + x_n^2}{n} - \frac{n\E[X_1^2]}{n} \right)^2 \right] \\
     &= \frac{1}{\epsilon^2} \E\left[ \left( \frac{x_1^2 + ... + x_n^2}{n} - \frac{\E[X_1^2] + ... + \E[X_n^2]}{n} \right)^2 \right] \\
     &= \frac{1}{\epsilon^2} \E\left[ \left( \frac{x_1^2 + ... + x_n^2}{n} - \frac{\E[X_1^2 + ... + X_n^2]}{n} \right)^2 \right] \\
@@ -299,7 +299,7 @@ Show that $Y_{1},Y_{2},\ldots$ converges in probability.  Express the limit in t
     &= \frac{1}{\epsilon^2 n^2} \var(X_1^2 + ... x_n^2) \\
     &= \frac{1}{\epsilon^2 n} \var(X_1^2).
   \end{align*}
-  Now letting $n \rightarrow \infty$, we have that $\frac{\var(X_1^2)}{\epsilon^2 n} \rightarrow 0$. Therefore, $Y_1, Y_2, ...$ converges in probability to $\E[X_1^2] = \var(X_1) + \E[X_1]^2$.
+  Now letting $n \rightarrow \infty$, we have that $\frac{\var(X_1^2)}{\epsilon^2 n} \rightarrow 0$. Therefore, $Y_1, Y_2, ...$ converges in probability to $\E[X_1^2] = \var(X_1) + \E[X_1]^2$. (Note that this is well defined since both the variance and mean of $X_1$ are finite.)
 \end{proof}
 
 

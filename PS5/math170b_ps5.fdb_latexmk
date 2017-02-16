@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1487226081 "math170b_ps5.tex" "math170b_ps5.pdf" "math170b_ps5" 1487226143
+["pdflatex"] 1487227703 "math170b_ps5.tex" "math170b_ps5.pdf" "math170b_ps5" 1487227703
   "/etc/texmf/web2c/texmf.cnf" 1487061432 1101 af7716885e081ab43982cab7b4672c1a ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1246382020 1120 1e8878807317373affa7f7bba4cf2f6a ""
@@ -198,13 +198,13 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1458942643 31351 b32c45dce4a01cb7b53ed90c546614ca ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1487061580 1863403 f3ff9a4253bcb5fb9a9baaf0c572cb01 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1487061602 3854049 c1239dd193c3f88c97e6d76a03475b57 ""
-  "math170b_ps5.aux" 1487226081 820 216720548cc94a3cd20e55599f446dbd ""
-  "math170b_ps5.out" 1487226081 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "math170b_ps5.tex" 1487226143 12026 156c42bd3b0c823dbdd1deeea0f17b13 ""
+  "math170b_ps5.aux" 1487227703 820 216720548cc94a3cd20e55599f446dbd ""
+  "math170b_ps5.out" 1487227703 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "math170b_ps5.tex" 1487227702 12204 eb1c0b2e36b19e1d9e3292da6b26c3fd ""
   (generated)
-  "math170b_ps5.log"
-  "/home/kyle/Dropbox/UCLA/13_2017_Winter/Math 170B/Problem Sets/PS5/math170b_ps5.log"
-  "math170b_ps5.aux"
-  "math170b_ps5.pdf"
   "math170b_ps5.out"
   "/home/kyle/Dropbox/UCLA/13_2017_Winter/Math 170B/Problem Sets/PS5/math170b_ps5.pdf"
+  "math170b_ps5.log"
+  "math170b_ps5.aux"
+  "/home/kyle/Dropbox/UCLA/13_2017_Winter/Math 170B/Problem Sets/PS5/math170b_ps5.log"
+  "math170b_ps5.pdf"
