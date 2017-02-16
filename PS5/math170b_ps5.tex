@@ -160,6 +160,12 @@ Let $X$ be a standard Gaussian random variable.  Let $t>0$ and let $n$ be a posi
 \[\P(X>t)\leq\frac{(n-1)(n-3)\cdots(3)(1)}{t^{n}}.\]
 That is, the function $t\mapsto\P(X>t)$ decays faster than any monomial.
 
+\begin{proof}
+  Let $X$ be a standard Gaussian random variable and let $t > 0$. Let $n$ be a positive even integer. Recall that from problem set 3, question 2, we found that for $n$ even, $\E[X^n] = (n-1)(n-3) \cdots 1$. Now using the Markov Inequality we have
+  \[
+  \P(X > t) = \P(X^n > t^n) \leq \frac{\E[X^n]}{t^n} = \frac{(n-1)(n-3) \cdots 1}{t^n}.
+  \]
+\end{proof}
 
 \begin{proof}
   Let $X$ be a standard Gaussian random variable and let $t > 0$. Let $n$ be a positive even integer. Recall that from problem set 3, question 2, we found that for $n$ even, $\E[X^n] = (n-1)(n-3) \cdots 1$. Now using the Markov Inequality we have
