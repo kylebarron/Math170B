@@ -160,6 +160,7 @@ Let $X$ be a standard Gaussian random variable.  Let $t>0$ and let $n$ be a posi
 \[\P(X>t)\leq\frac{(n-1)(n-3)\cdots(3)(1)}{t^{n}}.\]
 That is, the function $t\mapsto\P(X>t)$ decays faster than any monomial.
 
+
 \begin{proof}
   Let $X$ be a standard Gaussian random variable and let $t > 0$. Let $n$ be a positive even integer. Recall that from problem set 3, question 2, we found that for $n$ even, $\E[X^n] = (n-1)(n-3) \cdots 1$. Now using the Markov Inequality we have
   \[
@@ -203,69 +204,12 @@ And if we choose $t$ appropriately,
 %what is M_X-p for Bernoulli X?  It is 1*(-p)(1-p)+[e^t](1-p)*p=p(1-p)[-1+e^t]
 %  what is M_{|X-p|}?  it is p*(1-p)+e^t p(1-p)= p(1-p)[1+e^t]
 
-\begin{proof}
-  Let $X$ be a random variable and let $r > 0$. Then we have that
-  \begin{align*}
-    \P(X \geq r) = \P(e^{tX} \geq e^{tr}) \leq \frac{\E[e^{tX}]}{e^{tr}} = e^{-tr} M_X(t),
-  \end{align*}
-  where the first equality uses that $t > 0$ so the exponential function is increasing, and the inequality uses the Markov inequality (which is valid since $e^x \geq 0$ for all $x$).
 
-  Now suppose that $X_1, ... X_n$ are independent and identically distributed. Then
-  \begin{align*}
-    \P \left( \frac{1}{n} \sum_{i=1}^n X_i > r \right) &= \P \left( \sum_{i=1}^n X_i > rn \right)\\
-    &\leq e^{-trn} M_{ \sum_{i=1}^n X_i} (t) \\
-    &= e^{-trn} \left(M_{X_1} (t)\right)^n \\
-%    &= e^{-tr} \left( \E\left[e^{\frac{tX_1}{n}}\right] \right)^n \\
-%    &= e^{-tr} \left( \E\left[e^{\frac{tX_1}{n}}\right] \right)^n
-%    &= e^{-tr} (M_{X_1} (t))^n
-  \end{align*}
-\end{proof}
+
 
 \subsection*{Exercise 4}
 
 Let $X_{1},X_{2},\ldots$ be independent random variables, each with exponential distribution with parameter $\lambda=1$.  For any $n \geq 1$, let $Y_{n}\coloneqq\max(X_{1},\ldots,X_{n})$.  Let $0<a<1<b$.  Show that $\P(Y_{n}\leq a\log n)\to0$ as $n\to\infty$, and $\P(Y_{n}\leq b\log n)\to1$ as $n\to\infty$.  Conclude that $Y_{n}/\log n$ converges to $1$ in probability as $n\to\infty$.
-
-\begin{proof}
-  Let $X_1, X_2, ...$ be independent random variables, each exponentially distributed with $\lambda = 1$. For any $n \geq 1$, define $Y_n \coloneqq \max(X_1, ... , X_n).$ First let $c > 0$. Then
-  \begin{align*}
-    \P(Y_n \leq c \log n) &= \P( \max(X_1, ... , X_n) \leq c \log n) \\
-    &= \P(X_1 \leq c \log n \cap X_2 \leq c \log n \cap \cdots \cap X_n \leq c \log n) \\
-    &= \P(X_1 \leq c \log n) \cdots \P(X_n \leq c \log n) \\
-    &= \P(X_1 \leq c \log n)^n \\
-    &= (1 - e^{-c \log n})^n.
-  \end{align*}
-  Now define $f(u) = e^u$ and let $g(n) = n \log (1- \frac{1}{n^c})$.
-  \begin{align*}
-    \lim_{n \rightarrow \infty} \P(Y_n \leq c \log n) &= \lim_{n \rightarrow \infty} (1-e^{-c\log n})^n \\
-    &= \lim_{n \rightarrow \infty} e^{n \log (1- \frac{1}{n^c})}
-  \end{align*}
-  Now just consider $n \log (1- \frac{1}{n^c})$, which we can rewrite as $\frac{\log(1 - \frac{1}{n^c})}{\frac{1}{n}}$. This limit as $n \rightarrow \infty$ is an indeterminate firm, so we use l'hopital's rule
-  \begin{align*}
-    \frac{d}{dn} (\log(1 - \frac{1}{n^c})) &= \frac{c}{n^{c+1} - n} \\
-    \frac{d}{dn} (\frac{1}{n}) &= \frac{-1}{n^2}.
-  \end{align*}
-  Now note that again $\lim_{n \rightarrow \infty} \frac{-cn^2}{n^{c+1} - n} = \lim_{n \rightarrow \infty} \frac{-cn}{n^{c} - 1}$ which is again an indeterminate form. Using l'hopital's rule again, we get:
-  \begin{align*}
-    \frac{d}{dn}(-cn) &= -c \\
-    \frac{d}{dn} (n^c - 1) &= cn^{c-1}.
-  \end{align*}
-  So this limit becomes $\lim_{n \rightarrow \infty} \frac{-1}{n^{c-1}}$. Now consider the case when $c \in (0,1)$ and when $c > 1$.
-  \begin{itemize}
-    \item Let $c \in (0,1)$. Then $c-1 \in (-1, 0)$ and $\lim_{n \rightarrow \infty} \frac{-1}{n^{c-1}} = -\infty$. So we have $\lim_{n \rightarrow \infty} g(n) = -\infty$. Then by the limit chain rule, we have $\lim_{u \rightarrow -\infty} f(u) = \lim_{u \rightarrow -\infty} e^u = 0$.
-    \item Let $c > 1$. Then $c - 1 > 0$, so $\lim_{n \rightarrow \infty} \frac{-1}{n^{c-1}} = 0$. So $\lim_{n \rightarrow \infty} g(n) = 0.$ Then by the limit chain rule, $\lim_{u \rightarrow 0} f(u) = e^0 = 1$.
-  \end{itemize}
-  Therefore, we have that $\lim_{n \rightarrow \infty} \P(Y_n \leq c \log n) = \begin{cases}
-  0,& c \in (0,1) \\
-  1, & c > 1.
-  \end{cases}$
-  Now we need to conclude that $\frac{Y_n}{\log n} \rightarrow 1$ as $n \rightarrow \infty$ in probability. First, note that $x \leq c, |x-1| > \epsilon$ is true if and only if $x > 1 + \epsilon$ or $x < 1 - \epsilon$.
-  \begin{align*}
-    \P(|\frac{Y_n}{\ln n} - 1| > \epsilon) &= \P(\frac{Y_n}{\ln(n)} - 1 > \epsilon) + \P(\frac{Y_n}{\ln n} - 1 < - \epsilon).
-  \end{align*}
-  Now let $c = 1 + \epsilon$. Note that $\P(\frac{Y_n}{\ln n} - 1 < - \epsilon) \rightarrow 0$ corresponds to case 1 above and $\P(\frac{Y_n}{\ln(n)} - 1 > \epsilon) \rightarrow 1$ corresponds to case 2 above.
-  Then note that the complement of $(\frac{Y_n}{\ln n} \leq 1 + \epsilon)$ is $(\frac{Y_n}{\ln n} - 1 > \epsilon)$.
-  So $\P(\frac{Y_n}{\ln n} - 1 > \epsilon) = 1 - \P(\frac{Y_n}{\ln n} \leq 1 + \epsilon)$, and in the limit this converges to zero. Therefore, $\P(|\frac{Y_n}{\ln n} - 1|)$ converges in probability to 1.
-\end{proof}
 
 
 
@@ -296,20 +240,14 @@ Is the converse true?  Prove your assertion.
   \[
     \P(|X_n - X| > \epsilon) \leq \frac{\E[(X_n - X)^2]}{\epsilon^2}.
   \]
-  Since we know that $X_1, X_2, ...$ converge to $X$ in $L_2$,
+  Since we know that $X_1, X_2, ...$ converge to $X$ in $L^2$,
   \[
     \lim_{n \rightarrow \infty} \E[(X_n - X)^2] = 0 \Rightarrow \lim_{n \rightarrow \infty} \P(|X_n - X| > \epsilon) = 0.
   \]
   So $X_1, X_2, ...$ converge in probability.
 
-  The converse is not true: convergence in probability does not imply convergence in $L_2$. For a counterexample, let $X_n$ be a random variable such that for $n = 1, 2, ...$,
-  \[
-    X_n = \begin{cases}
-    e^n, & \text{with probability } \frac{1}{n} \\
-    0, & \text{with probability } 1 - \frac{1}{n}.
-  \end{cases}
-  \]
-  Then for all $\epsilon > 0$, $\P(|X_n| < \epsilon) = 1 - \frac{1}{n} \rightarrow 1$ as $n \rightarrow \infty$. Therefore, $X_n$ converges to 0 in probability since $\P(|X_n| > \epsilon) = 1 - \P(|X_n| < \epsilon)$. However $\E[|X_n - 0|^2] = \E[|X_n|^2] = \frac{e^{2n}}{n}$. Since $\frac{e^{2n}}{n} \rightarrow \infty$ as $n \rightarrow \infty$, $X_n$ does not converge to 0 in $L_2$.
+  Recall that 
+
 \end{proof}
 
 \subsection*{Exercise 6}
@@ -324,10 +262,10 @@ Show that $Y_{1},Y_{2},\ldots$ converges in probability.  Express the limit in t
   \[
     Y_n \coloneqq \frac{1}{n} \sum_{i=1}^n X_i^2.
   \]
-  Let $\epsilon > 0$. To show that $Y_1, Y_2, ...$ converges in probability we need to show that $\lim_{n \rightarrow \infty} \P(|Y_n - Y| > \epsilon) = 0$. I'll show that $Y$, the limit of $Y_n$ as $n \rightarrow \infty$, is equal to the second moment of $X_1$ (which is the same for all $X$ since they're independent and identically distributed). I use Markov's inequality with $n = 2$ and then simplify:
+  Let $\epsilon > 0$. To show that $Y_1, Y_2, ...$ converges in probability we need to show that $\lim_{n \rightarrow \infty} \P(|Y_n - Y| > \epsilon) = 0$. I'll show that $Y$, the limit of $Y_n$ as $n \rightarrow \infty$, is equal to the second moment of $X_1$ (which is the same for all $X$ since they're independent and identically distributed).
   \begin{align*}
     \P(|Y_n - Y| > \epsilon) &= P\left( \left| \frac{x_1^2 + ... + x_n^2}{n} - \E[X_1^2] \right| > \epsilon \right) \\
-    &\leq \frac{1}{\epsilon^2} \E\left[ \left| \frac{x_1^2 + ... + x_n^2}{n} - \E[X_1^2] \right|^2 \right] \\
+    &= \frac{1}{\epsilon^2} \E\left[ \left| \frac{x_1^2 + ... + x_n^2}{n} - \E[X_1^2] \right|^2 \right] \\
     &= \frac{1}{\epsilon^2} \E\left[ \left( \frac{x_1^2 + ... + x_n^2}{n} - \frac{n\E[X_1^2]}{n} \right)^2 \right] \\
     &= \frac{1}{\epsilon^2} \E\left[ \left( \frac{x_1^2 + ... + x_n^2}{n} - \frac{\E[X_1^2] + ... + \E[X_n^2]}{n} \right)^2 \right] \\
     &= \frac{1}{\epsilon^2} \E\left[ \left( \frac{x_1^2 + ... + x_n^2}{n} - \frac{\E[X_1^2 + ... + X_n^2]}{n} \right)^2 \right] \\
@@ -335,8 +273,9 @@ Show that $Y_{1},Y_{2},\ldots$ converges in probability.  Express the limit in t
     &= \frac{1}{\epsilon^2 n^2} \var(X_1^2 + ... x_n^2) \\
     &= \frac{1}{\epsilon^2 n} \var(X_1^2).
   \end{align*}
-  Now letting $n \rightarrow \infty$, we have that $\frac{\var(X_1^2)}{\epsilon^2 n} \rightarrow 0$. Since probabilities are nonnegative and we have that $\P(|Y_n - Y| > \epsilon) \leq \frac{\var(X_1^2)}{\epsilon^2 n}$, we know that $\P(|Y_n - Y| > \epsilon) \rightarrow 0$. Therefore, $Y_1, Y_2, ...$ converges in probability to $\E[X_1^2] = \var(X_1) + \E[X_1]^2$. (Note that this is well defined since both the variance and mean of $X_1$ are finite.)
+  Now letting $n \rightarrow \infty$, we have that $\frac{\var(X_1^2)}{\epsilon^2 n} \rightarrow 0$. Therefore, $Y_1, Y_2, ...$ converges in probability to $\E[X_1^2] = \var(X_1) + \E[X_1]^2$.
 \end{proof}
+
 
 
 
